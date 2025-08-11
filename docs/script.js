@@ -1,37 +1,58 @@
-const form = document.getElementById("chat-form");
-const input = document.getElementById("user-input");
-const chatArea = document.getElementById("chat-area");
+document.addEventListener("DOMContentLoaded", () => {
+  const chatBox = document.getElementById("chat-area");
+  const chatForm = document.getElementById("chat-form");
+  const userInput = document.getElementById("user-input");
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+  chatForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const message = userInput.value.trim();
+    if (!message) return;
 
-  const userText = input.value.trim();
-  if (!userText) return;
+    addMessage("user", message);
+    userInput.value = "";
 
-  // Show user message
-  chatArea.innerHTML += `<div class="user-message">${userText}</div>`;
-  input.value = "";
+    try {
+      const res = await fetch("https://Vishesh1005-chatbotV2.hf.space/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: message }) // FIXED: 'text' → 'message' to match FastAPI input
+      });
 
-  try {
-    const res = await fetch("https://Vishesh1005-chatbotV2.hf.space/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ text: userText })
-    });
+      const data = await res.json();
 
-    const data = await res.json();
-    console.log("📦 Response from backend:", data);
+      // ✅ Add response text
+      if (data.response) {
+        addMessage("bot", data.response);
+      }
 
-    const reply = typeof data.response === "string"
-      ? data.response
-      : JSON.stringify(data.response);
+      // ✅ Add image if present
+      if (data.image) {
+        const img = document.createElement("img");
+        img.src = data.image;
+        img.alt = "Response image";
+        img.classList.add("chat-image");
+        chatBox.appendChild(img);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+    } catch (err) {
+      addMessage("bot", "⚠️ Server error. Please try again later.");
+    }
+  });
 
-    chatArea.innerHTML += `<div class="bot-message">${reply}</div>`;
+  // ✅ Enter key sends message
+  userInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      chatForm.dispatchEvent(new Event("submit"));
+    }
+  });
 
-  } catch (err) {
-    console.error("❌ Chat error:", err);
-    chatArea.innerHTML += `<div class="bot-message">❌ Server error</div>`;
+  // ✅ Append a message to chat
+  function addMessage(sender, text) {
+    const msgDiv = document.createElement("div");
+    msgDiv.className = sender === "user" ? "user-message" : "bot-message";
+    msgDiv.textContent = text;
+    chatBox.appendChild(msgDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
   }
 });
