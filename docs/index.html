@@ -2,25 +2,67 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ITS Admission Help</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="chat-container">
-    <!-- 🎓 Header Ribbon -->
-    <div class="chat-header">ITS Admission Help</div>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-content">
+      <div class="navbar-logo">
+        <img src="itslogo.jpg" alt="ITS Logo" />
+        <h1>ITS Admission Portal</h1>
+      </div>
+      <div class="navbar-links">
+        <a href="https://www.facebook.com/BBABCAI.T.SMohanNagar" class="social-btn facebook" target="_blank" title="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.linkedin.com/company/its-the-education-group-ghaziabad/" class="social-btn linkedin" target="_blank" title="LinkedIn">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="https://www.instagram.com/itsghaziabad/?hl=en" class="social-btn instagram" target="_blank" title="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+    </div>
+  </nav>
 
-    <!-- 💬 Chat Display Area -->
-    <div id="chat-area" class="chat-area"></div>
+  <!-- Main Container -->
+  <div class="main-container">
+    <div class="chat-container">
+      <div class="chat-header">
+        <h1>AdmiSmart.ai</h1>
+      </div>
 
-    <!-- 📝 User Input -->
-    <form id="chat-form" class="chat-form">
-      <input type="text" id="user-input" placeholder="Ask about admission..." required />
-      <button type="submit">Send</button>
-    </form>
+      <div id="chat-area" class="chat-area"></div>
+
+      <form id="chat-form" class="chat-form">
+        <input type="text" id="user-input" placeholder="Ask about admission, courses, fees..." required />
+        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+        <button type="button" onclick="location.href='form.html'">End Chat</button>
+      </form>
+    </div>
   </div>
 
-  <!-- ⚙️ Script -->
+   <footer class="footer">
+    <div class="footer-content">
+      <span>Developed by</span>
+      <a href="https://www.linkedin.com/in/vishesh-dua/" class="developer-link" target="_blank">
+        <i class="fab fa-linkedin"></i>
+        Vishesh Dua
+      </a>
+      <span class="dot">•</span>
+      <span class="mentor">Mentor: <span class="mentor-name">Prof. Shivoham Tiwari</span></span>
+    </div>
+  </footer>
+  
+  <!-- WhatsApp Chat Button -->
+  <a href="https://wa.me/+919315905408?text=Hello,%20I%20need%20help%20with%20ITS%20admission" class="whatsapp-btn" target="_blank" title="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
   <script src="script.js"></script>
 </body>
 </html>
