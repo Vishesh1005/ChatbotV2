@@ -13,7 +13,7 @@ form.addEventListener("submit", async (e) => {
   input.value = "";
 
   try {
-    const res = await fetch("http://localhost:8000/chat", {
+    const res = await fetch("https://Vishesh1005-chatbotV2.hf.space/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
